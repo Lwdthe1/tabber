@@ -8,23 +8,31 @@ module.exports = {
 	config: function(prefs){
 		if(prefs) {
 			if(prefs.showDebugMessages) showDebugMessages = prefs.showDebudMessages;
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	},
 	removeCollectionDocumentsBy: function (db, collectionName, query) {
 		if(db && collectionName && query) {
 			if(showDebugMessages) console.log("Removing db collection docs: " + collectionName + " " + query);
 			db.collection(collectionName).remove(query);
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	},
 	removeOneCollectionDocumentBy: function (db, collectionName, query) {
 		if(db && collectionName && query) {
 			if(showDebugMessages) console.log("Removing db collection doc: " + collectionName + " " + query);
 			db.collection(collectionName).remove(query, true);
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	},
 	clearCollection: function (db, collectionName){
 		if(db && collectionName) {
 			db.collection(collectionName).remove({},function(err, removed){});
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	},
 	setCollectionField: function (db, collectionName, setValue) {
@@ -35,6 +43,8 @@ module.exports = {
 			        {$set : setValue},
 			        {upsert:false,multi:true}
 		    	);
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	},
 	unsetCollectionField: function (db, collectionName, unsetValue) {
@@ -45,6 +55,8 @@ module.exports = {
 		        {$unset : unsetValue},
 		        {upsert:false,multi:true}
 		    );
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	},
 	findOneByAndRun: function (db, collectionName, searchQuery, callback, handleError){
@@ -67,6 +79,8 @@ module.exports = {
 					callback(doc);
 				}
 			});
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	},
 	findByAndRun: function (db, collectionName, searchQuery, callback, handleError){
@@ -89,6 +103,8 @@ module.exports = {
 					callback(doc);
 				}
 			});
+		} else {
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
 		}
 	}
 }
