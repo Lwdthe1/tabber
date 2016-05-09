@@ -1,9 +1,19 @@
+function isFunction(functionToCheck) {
+ var getType = {};
+ return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
 module.exports = {
-	showDebugMessages: true,
+	showDebugMessages: false,
+	db: null,
 	config: function(prefs){
 		if(prefs) {
 			if(prefs.showDebugMessages) showDebugMessages = prefs.showDebudMessages;
+			if(prefs.db) db = prefs.db;
 		}
+	},
+	setDb: function(mDb) {
+		if(mDb) db = mDb;
 	},
 	removeCollectionDocumentsBy: function (db, collectionName, query) {
 		if(db && collectionName && query) {
@@ -43,7 +53,7 @@ module.exports = {
 		}
 	},
 	findOneByAndRun: function (db, collectionName, searchQuery, callback, handleError){
-		if(db && searchQuery && callback) {
+		if(db && searchQuery && isFunction(callback)) {
 			db.collection(collectionName).findOne(searchQuery,function(err, doc) {
 				if(err || !doc) {
 			    		//failed to find the corresponding publication by id and contributorId. 
@@ -51,7 +61,7 @@ module.exports = {
 			    		if(err) {
 			    			if(showDebugMessages) console.log("Failed to find one doc: " + err.message);
 			    		}
-			    		if(handleError) {
+			    		if(isFunction(handleError)) {
 			    			if(showDebugMessages) console.log("Handling error as defined.")
 			    			handleError(err);
 			    		}
@@ -65,7 +75,7 @@ module.exports = {
 		}
 	},
 	findByAndRun: function (db, collectionName, searchQuery, callback, handleError){
-		if(db && searchQuery && callback) {
+		if(db && searchQuery && isFunction(callback)) {
 			db.collection(collectionName).find(searchQuery).toArray(function(err, doc) {
 				if(err || !doc) {
 			    		//failed to find the corresponding publication by id and contributorId. 
@@ -73,7 +83,7 @@ module.exports = {
 			    		if(err) {
 			    			if(showDebugMessages) console.log("Failed to find one doc: " + err.message, true);
 			    		}
-			    		if(handleError) {
+			    		if(isFunction(handleError)) {
 			    			if(showDebugMessages) console.log("Handling error as defined.")
 			    			handleError(err);
 			    		}
