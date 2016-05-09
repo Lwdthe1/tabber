@@ -1,6 +1,6 @@
 {
   "name": "tabber",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A library of mongodb helper functions to make manipulating your db and its collections better (er).",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Lwdthe1/tabber.git"
   },
   "keywords": [
-    "parallel", "async", "promise", "in-parallel"
+    "mongodb", "mongo", "mongo helper", "helper"
   ],
   "author": "Lincoln W Daniel <lwdthe1@gmail.com> (http://lincolnwdaniel.com)",
   "license": "MIT",

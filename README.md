@@ -26,17 +26,7 @@ Imagine you have a bunch of users and each user has a bunch of photos all stored
   Debug messages are NOT printed to the console by default but you can choose to have them printed like so:
   ```javascript
   	tabber.config({showDebugMessages:true});
-  ```
-
-  Want to set your db globally? Do this:
-  ```javascript
-  	tabber.setDb(db);
-  ```
-  
-
-## Tests
-
-  npm test
+  ```  
 
 ## Contributing
 
