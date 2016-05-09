@@ -5,15 +5,10 @@ function isFunction(functionToCheck) {
 
 module.exports = {
 	showDebugMessages: false,
-	db: null,
 	config: function(prefs){
 		if(prefs) {
 			if(prefs.showDebugMessages) showDebugMessages = prefs.showDebudMessages;
-			if(prefs.db) db = prefs.db;
 		}
-	},
-	setDb: function(mDb) {
-		if(mDb) db = mDb;
 	},
 	removeCollectionDocumentsBy: function (db, collectionName, query) {
 		if(db && collectionName && query) {
