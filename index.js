@@ -5,49 +5,85 @@ module.exports = {
 			if(prefs.showDebugMessages) showDebugMessages = prefs.showDebudMessages;
 		}
 	},
-	run: function(collection, parallelAction, onFinish, handleError){
-		if(collection && isFunction(parallelAction) && isFunction(onFinish)) {
-			if(collection.length > 0) {
-				if(showDebugMessages) console.log("Running actions in parallel.");
-				collection.parallelErrorsMap99 = {};
-				var numElements = collection.length;
-				var numElementsCompleted = 0;
-
-				/*set the proceed function 
-				for each parallel action to call when it finishes with an element*/
-				this.proceedAfterInParallelAction = function() {
-					numElementsCompleted++;
-					
-					//check if all parallel actions are complete
-					if(numElementsCompleted == numElements) {
-						//run the onFinish function
-						onFinish();
-					}
-				}
-				
-				//run the parallel action on each element of the collection
-				for(var i = 0; i < numElements; i++) {
-					var currentElement = collection[i];
-					if(currentElement) {
-						//run the parallel action on the element in background
-						setTimeout(parallelAction(currentElement), 0);
-					}
-				}
-			} else {
-				if(showDebugMessages) {
-					console.log("Provided collection is empty.", true);
-				}
-				if(isFunction(handleError)) {
-					//an error handler was provided. handle the error as desired.
-					handleError({message:"Provided collection is empty."});
+	removeCollectionDocumentsBy: function (db, collectionName, query) {
+		if(db && collectionName && query) {
+			if(showDebugMessages) console.log("Removing db collection docs: " + collectionName + " " + query);
+			db.collection(collectionName).remove(query);
+		}
+	},
+	removeOneCollectionDocumentBy: function (db, collectionName, query) {
+		if(db && collectionName && query) {
+			if(showDebugMessages) console.log("Removing db collection doc: " + collectionName + " " + query);
+			db.collection(collectionName).remove(query, true);
+		}
+	},
+	clearCollection: function (db, collectionName){
+		if(db && collectionName) {
+			db.collection(collectionName).remove({},function(err, removed){});
+		}
+	},
+	setCollectionField: function (db, collectionName, setValue) {
+		if(db && collectionName && setValue) {
+			if(showDebugMessages) console.log("Setting db collection field: " + collectionName + " " + setValue);
+			
+			db.collection(collectionName).update({},
+			        {$set : setValue},
+			        {upsert:false,multi:true}
+		    	);
+		}
+	},
+	unsetCollectionField: function (db, collectionName, unsetValue) {
+		if(db && collectionName && unsetValue) {
+			if(showDebugMessages) console.log("Unsetting db collection field: " + collectionName + " " + unsetValue);
+			
+			db.collection(collectionName).update({},
+		        {$unset : unsetValue},
+		        {upsert:false,multi:true}
+		    );
+		}
+	},
+	findOneByAndRun: function (db, collectionName, searchQuery, callback, handleError){
+		if(db && searchQuery && callback) {
+			db.collection(collectionName).findOne(searchQuery,function(err, doc) {
+				if(err || !doc) {
+			    		//failed to find the corresponding publication by id and contributorId. 
+			    		//insert the new request
+			    		if(err) {
+			    			if(showDebugMessages) console.log("Failed to find one doc: " + err.message);
+			    		}
+			    		if(handleError) {
+			    			if(showDebugMessages) console.log("Handling error as defined.")
+			    			handleError(err);
+			    		}
 				} else {
-					//no error handler was provided. Handle the error by calling the onFinish method by default
-					onFinish();
+					//find succeeded
+					//update the request
+					if(showDebugMessages) console.log("FOUND ONE DOC. Running callback: " + JSON.stringify(doc));
+					callback(doc);
 				}
-			}
-		} else {
-			if(showDebugMessages) console.log("Missing necessary arguments. No collection provided.", true);
-			if(isFunction(handleError)) handleError({message:"Missing necessary arguments: " + collection + " " + parallelAction + " " + onFinish});
+			});
+		}
+	},
+	findByAndRun: function (db, collectionName, searchQuery, callback, handleError){
+		if(db && searchQuery && callback) {
+			db.collection(collectionName).find(searchQuery).toArray(function(err, doc) {
+				if(err || !doc) {
+			    		//failed to find the corresponding publication by id and contributorId. 
+			    		//insert the new request
+			    		if(err) {
+			    			if(showDebugMessages) console.log("Failed to find one doc: " + err.message, true);
+			    		}
+			    		if(handleError) {
+			    			if(showDebugMessages) console.log("Handling error as defined.")
+			    			handleError(err);
+			    		}
+				} else {
+					//find succeeded
+					//update the request
+					if(showDebugMessages) console.log("FOUND ONE DOC. Running callback: " + JSON.stringify(doc));
+					callback(doc);
+				}
+			});
 		}
 	}
 }
