@@ -1,6 +1,6 @@
 {
-  "name": "in-parallel",
-  "version": "0.3.0",
+  "name": "tabber",
+  "version": "0.1.0",
   "description": "A library of mongodb helper functions to make manipulating your db and its collections better (er).",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lwdthe1/in-parallel.git"
+    "url": "git+https://github.com/Lwdthe1/tabber.git"
   },
   "keywords": [
     "parallel", "async", "promise", "in-parallel"
@@ -16,11 +16,7 @@
   "author": "Lincoln W Daniel <lwdthe1@gmail.com> (http://lincolnwdaniel.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Lwdthe1/in-parallel/issues"
+    "url": "https://github.com/Lwdthe1/tabber/issues"
   },
-  "homepage": "https://github.com/Lwdthe1/in-parallel#readme",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^2.4.5"
-  }
+  "homepage": "https://github.com/Lwdthe1/tabber#readme"
 }
