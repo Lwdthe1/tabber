@@ -1,6 +1,6 @@
 {
   "name": "tabber",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A library of mongodb helper functions to make manipulating your db and its collections better (er).",
   "main": "index.js",
   "scripts": {

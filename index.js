@@ -3,16 +3,18 @@ function isFunction(functionToCheck) {
 	return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]'; 
 } 
 
-module.exports = { 
-	showDebugMessages: false, 
-	config: function(prefs){ 
+module.exports = function(showDBMessages) { 
+	this.showDebugMessages = !!showDBMessages;
+
+	this.config = function(prefs){ 
 		if(prefs) { 
 			if(prefs.showDebugMessages) this.showDebugMessages = !!prefs.showDebudMessages; 
 		} else { 
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
-	}, 
-	removeCollectionDocumentsBy: function (db, collectionName, query) { 
+	};
+
+	this.removeCollectionDocumentsBy = function (db, collectionName, query) { 
 		if(this.showDebugMessages) console.log("Running tabber.removeCollectionDocumentsBy");
 		 if(db && collectionName && query) { 
 		 	if(this.showDebugMessages) console.log("Removing db collection docs: " + collectionName + " " + query); 
@@ -20,8 +22,9 @@ module.exports = {
 	 	} else { 
 	 		if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
  		} 
-	}, 
-	removeOneCollectionDocumentBy: function (db, collectionName, query) { 
+	}; 
+
+	this.removeOneCollectionDocumentBy = function (db, collectionName, query) { 
 		if(this.showDebugMessages) console.log("Running tabber.removeOneCollectionDocumentBy"); 
 		if(db && collectionName && query) { 
 			if(this.showDebugMessages) console.log("Removing db collection doc: " + collectionName + " " + query); 
@@ -29,16 +32,18 @@ module.exports = {
 		} else { 
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
-	}, 
-	clearCollection: function (db, collectionName){ 
+	}; 
+
+	this.clearCollection = function (db, collectionName){ 
 		if(this.showDebugMessages) console.log("Running tabber.clearCollection"); 
 		if(db && collectionName) { 
 			db.collection(collectionName).remove({},function(err, removed){}); 
 		} else { 
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
-	}, 
-	setCollectionField: function (db, collectionName, setValue) { 
+	};
+	
+	this.setCollectionField = function (db, collectionName, setValue) { 
 		if(this.showDebugMessages) console.log("Running tabber.setCollectionField"); 
 		if(db && collectionName && setValue) { 
 			if(this.showDebugMessages) console.log("Setting db collection field: " + collectionName + " " + setValue); 
@@ -46,8 +51,9 @@ module.exports = {
 		} else { 
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
-	}, 
-	unsetCollectionField: function (db, collectionName, unsetValue) { 
+	};
+
+	this.unsetCollectionField = function (db, collectionName, unsetValue) { 
 		if(this.showDebugMessages) console.log("Running tabber.unsetCollectionField"); 
 		if(db && collectionName && unsetValue) { 
 			if(this.showDebugMessages) console.log("Unsetting db collection field: " + collectionName + " " + unsetValue); 
@@ -55,8 +61,9 @@ module.exports = {
 		} else { 
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
-	}, 
-	findOneByAndRun: function (db, collectionName, searchQuery, callback, handleError){ 
+	};
+
+	this.findOneByAndRun = function (db, collectionName, searchQuery, callback, handleError){ 
 		if(this.showDebugMessages) console.log("Running tabber.findOneByAndRun"); 
 		if(db && searchQuery && isFunction(callback)) { 
 			db.collection(collectionName).findOne(searchQuery,function(err, doc) { 
@@ -79,8 +86,9 @@ module.exports = {
 		} else { 
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
-	}, 
-	findByAndRun: function (db, collectionName, searchQuery, callback, handleError){
+	};
+
+	this.findByAndRun = function (db, collectionName, searchQuery, callback, handleError){
 		if(this.showDebugMessages) console.log("Running tabber.findByAndRun");
 		if(db && searchQuery && isFunction(callback)) {
 			db.collection(collectionName).find(searchQuery).toArray(function(err, doc) {
@@ -103,5 +111,5 @@ module.exports = {
 		} else { 
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
-	} 
+	}; 
 }
