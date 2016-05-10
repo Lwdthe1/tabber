@@ -16,8 +16,6 @@ Initialize inParallel like so:
   ```
 ###A Simple Example
   ```javascript
-    tabber.config({"showDebugMessages": true});
-
       tabber.findOneByAndRun(db, "usersCollection", {
         email: "uniqueUserEmail@coolsite.com"
       }, function(user){
