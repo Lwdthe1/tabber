@@ -38,7 +38,7 @@ Initialize inParallel like so:
   ```javascript
   	var tabber = new Tabber(false);
 
-    OR 
+    //OR 
 
     var tabber = new Tabber();
   ```  
