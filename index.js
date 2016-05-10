@@ -67,36 +67,44 @@ module.exports = function(showDBMessages) {
 
 	this.findOneByAndRun = function (db, collectionName, searchQuery, callback, handleError){
 		var showDebugMessages = this.showDebugMessages; 
-		if(this.showDebugMessages) console.log("Running tabber.findOneByAndRun"); 
+		if(showDebugMessages) console.log("Running tabber.findOneByAndRun"); 
+
 		if(db && searchQuery && isFunction(callback)) { 
+			if(showDebugMessages) console.log("tabber.findOneByAndRun starting db query."); 
 			db.collection(collectionName).findOne(searchQuery,function(err, doc) { 
 				if(err || !doc) { 
 					// find failed
 					if(err) { 
-						if(this.showDebugMessages) console.log("Failed to find one doc: " + err.message); 
+						if(showDebugMessages) console.log("Failed to find one doc: " + err.message); 
 					} 
 
 					if(isFunction(handleError)) { 
-						if(this.showDebugMessages) console.log("Handling error as defined.");
+						if(showDebugMessages) console.log("Handling error as defined.");
 						handleError(err); 
 					} 
 				} else { 
 					//find succeeded 
-					if(this.showDebugMessages) console.log("Tabber Found a doc. Running callback: " + JSON.stringify(doc));
+					if(showDebugMessages) console.log("Tabber Found a doc. Running callback: " + JSON.stringify(doc));
 					callback(doc); 
 				} 
 			}); 
 		} else { 
-			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
-			handleError({message: "Necessary values missing."}) 
+			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing.");
+			
+			if(isFunction(handleError)) { 
+				if(showDebugMessages) console.log("Handling error as defined.");
+				handleError({message: "Necessary values missing."}) 
+			} 
 		} 
 	};
 
 	this.findByAndRun = function (db, collectionName, searchQuery, callback, handleError){
 		var showDebugMessages = this.showDebugMessages; 
 		if(showDebugMessages) console.log("Running tabber.findByAndRun");
-		
+
 		if(db && searchQuery && isFunction(callback)) {
+			if(showDebugMessages) console.log("tabber.findByAndRun starting db query."); 
+			
 			db.collection(collectionName).find(searchQuery).toArray(function(err, doc) {
 				if(err || !doc) { 
 					//failed to find the corresponding publication by id and contributorId. 
@@ -116,6 +124,10 @@ module.exports = function(showDBMessages) {
 			}); 
 		} else { 
 			if(showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
+			if(isFunction(handleError)) { 
+				if(showDebugMessages) console.log("Handling error as defined.");
+				handleError({message: "Necessary values missing."}) 
+			} 
 		} 
 	}; 
 
