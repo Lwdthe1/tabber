@@ -36,7 +36,11 @@ Initialize inParallel like so:
 ###Debug Messages
   Debug messages are NOT printed to the console by default but you can choose to have them printed like so:
   ```javascript
-  	tabber.config({showDebugMessages:true});
+  	var tabber = new Tabber(false);
+
+    OR 
+
+    var tabber = new Tabber();
   ```  
 
 ## Contributing

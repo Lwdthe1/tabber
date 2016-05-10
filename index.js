@@ -4,7 +4,7 @@ function isFunction(functionToCheck) {
 } 
 
 module.exports = function(showDBMessages) { 
-	this.showDebugMessages = showDBMessages;
+	this.showDebugMessages = showDBMessages === true;
 
 	this.removeCollectionDocumentsBy = function (db, collectionName, query) { 
 		if(this.showDebugMessages) console.log("Running tabber.removeCollectionDocumentsBy");
