@@ -8,8 +8,8 @@ A library of  mongodb helper functions to make manipulating your db and its coll
 ## Usage
 Initialize inParallel like so:
   ```javascript
-  //required tabber
-	var Tabber = require('tabber');
+  //require tabber
+  var Tabber = require('tabber');
 
   //create a new instance of tabber
   var tabber = new Tabber(true);
