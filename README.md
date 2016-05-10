@@ -18,12 +18,22 @@ Initialize inParallel like so:
   ```javascript
     tabber.config({"showDebugMessages": true});
 
-      tabber.findOneByAndRun(db, "notificationsCollection", {
-        userId: 1836
-      }, function(notification){
+      tabber.findOneByAndRun(db, "usersCollection", {
+        email: "uniqueUserEmail@coolsite.com"
+      }, function(user){
         //success
-        if(notification) {
+        if(user) {
           //do something with it
+          tabber.findByAndRun(db, "notificationsCollection", {
+            userId: user._id
+          }, function(notifications){
+            //success
+            if(notifications) {
+              //do something with the user's notifications
+            }
+          }, function(err){
+            //handle the error
+          });
         }
       }, function(err){
         //handle the error
