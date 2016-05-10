@@ -67,7 +67,8 @@ module.exports = {
 					} 
 
 					if(isFunction(handleError)) { 
-						if(this.showDebugMessages) console.log("Handling error as defined.") handleError(err); 
+						if(this.showDebugMessages) console.log("Handling error as defined.");
+						handleError(err); 
 					} 
 				} else { 
 					//find succeeded 
@@ -90,7 +91,8 @@ module.exports = {
 					} 
 
 					if(isFunction(handleError)) {
-						if(this.showDebugMessages) console.log("Handling error as defined.") handleError(err); 
+						if(this.showDebugMessages) console.log("Handling error as defined.");
+						handleError(err); 
 					} 
 				} else { 
 					//find succeeded 
