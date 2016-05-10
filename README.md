@@ -8,17 +8,28 @@ A library of  mongodb helper functions to make manipulating your db and its coll
 ## Usage
 Initialize inParallel like so:
   ```javascript
-	//the proceedAfterParallelAction() method is provided
-	var tabber = require('tabber');
+  //required tabber
+	var Tabber = require('tabber');
+
+  //create a new instance of tabber
+  var tabber = new Tabber(true);
   ```
 ###A Simple Example
   ```javascript
+    tabber.config({"showDebugMessages": true});
+
+      tabber.findOneByAndRun(db, NOTIFICATIONS_COLLECTION, {
+        userId: 1836
+      }, function(notification){
+        //success
+        if(notification) {
+          //do something with it
+        }
+      }, function(err){
+        //handle the error
+      });
+
   ```
-###A Less Simple Example With MongoDB Queries
-Imagine you have a bunch of users and each user has a bunch of photos all stored in a mongodb. If you have to get each user's photo and do something with them.
-  ```javascript
-  	
-   ```
 
 ## Config
 
