@@ -4,15 +4,7 @@ function isFunction(functionToCheck) {
 } 
 
 module.exports = function(showDBMessages) { 
-	this.showDebugMessages = !!showDBMessages;
-
-	this.config = function(prefs){ 
-		if(prefs) { 
-			if(prefs.showDebugMessages) this.showDebugMessages = !!prefs.showDebudMessages; 
-		} else { 
-			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
-		} 
-	};
+	this.showDebugMessages = showDBMessages;
 
 	this.removeCollectionDocumentsBy = function (db, collectionName, query) { 
 		if(this.showDebugMessages) console.log("Running tabber.removeCollectionDocumentsBy");
@@ -112,4 +104,7 @@ module.exports = function(showDBMessages) {
 			if(this.showDebugMessages) console.log("Can't run this tabber. Necessary values missing."); 
 		} 
 	}; 
+
+	if(this.showDebugMessages) console.log("Tabber ready! Will show debug messages.");
+	else console.log("Tabber ready! Will not show debug messages.");
 }
