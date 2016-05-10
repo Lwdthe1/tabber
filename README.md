@@ -15,6 +15,7 @@ Initialize inParallel like so:
   var tabber = new Tabber(true);
   ```
 ###A Simple Example
+You could use tabber to find one user by a unique key-value pair in your mongodb and then use tabber again to find all notifications that belong to that user.
   ```javascript
       tabber.findOneByAndRun(db, "usersCollection", {
         email: "uniqueUserEmail@coolsite.com"
