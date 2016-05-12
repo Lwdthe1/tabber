@@ -3,7 +3,7 @@ A library of  mongodb helper functions to make manipulating your db and its coll
 
 ## Installation
 
-  npm install in-parallel --save
+  npm install tabber --save
 
 ## Usage
 Initialize inParallel like so:
